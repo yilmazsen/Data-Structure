@@ -1,0 +1,70 @@
+using System;
+
+namespace Queue
+{
+    private static class Node
+    {
+        private int data;
+        private Node next;
+        private Node(int data)
+        {
+            this.data = data;
+        }
+
+    }
+
+
+    private Node head; // remove from the head
+    private Node tail; //add things here
+
+    public boolean isEmpty()
+    {
+        return head == null;
+    }
+    public int peek()
+    {
+        return head.data;
+    }
+    public void add(int data)
+    {
+        Node node = new Node(data);
+        if (tail != null)
+        {
+            tail.next = node;
+        }
+        tail = node;
+        if (tail == head)
+        {
+            head = node;
+        }
+    }
+    public int remove()
+    {
+
+        int data = head.data;
+        head = head.next;
+        if (head == null)
+        {
+            tail = null;
+        }
+        return data;
+    }
+
+
+
+
+class MainClass
+{
+    public static void Main(string[] args)
+    {
+        Node t1 = new Node(2);
+        t1.add(10);
+        t1.add(11);
+        t1.add(12);
+        t1.add(13);
+        Console.WriteLine(t1.remove());
+
+    }
+}
+
+}
