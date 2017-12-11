@@ -1,0 +1,136 @@
+using System;
+
+public class Dugum
+{
+    public int Anahtar;
+    public Dugum pSonraki;
+
+    public Dugum(int Anahtar)
+    {
+        this.Anahtar = Anahtar;
+        pSonraki = null;
+    }
+
+
+    public override string ToString()
+    {
+        return Anahtar.ToString();
+    }
+}
+public class Hashtablo
+{
+    public const int MAX = 10;
+    public Dugum[] Veri = new Dugum[MAX];
+    public Hashtablo()
+    {
+        for (int i = 0; i < MAX; i++)
+        {
+            Veri[i] = null;
+        }
+    }
+
+    public void Ekle(int Anahtar)
+        {
+            Dugum pYeni = new Dugum(Anahtar);
+            int mod = Anahtar % MAX;
+            if (Veri[mod] == null)
+            {
+                Veri[mod] = pYeni;
+                return;
+            }
+            Dugum pTemp = Veri[mod];
+            while (pTemp.pSonraki != null)
+            {
+                pTemp = pTemp.pSonraki;
+                pTemp.pSonraki = pYeni;
+            }
+        }
+    public Dugum Getir(int Anahtar)
+        {
+            int mod = Anahtar % MAX;
+            Dugum pTemp = Veri[mod];
+            while (pTemp != null)
+            {
+                if (pTemp.Anahtar == Anahtar)
+                {
+                    return pTemp;
+                }
+                pTemp = pTemp.pSonraki;
+            }
+            return null;
+        }
+    public bool Cikar(int Anahtar)
+        {
+            int mod = Anahtar % MAX;
+            if (Veri[mod] == null)
+            {
+                return false;
+            }
+            if (Veri[mod].pSonraki == null)
+            {
+                if (Veri[mod].Anahtar == Anahtar)
+                {
+                    Veri[mod] = null;
+                    return true;
+                }
+                return false;
+
+            }
+
+            if (Veri[mod].Anahtar == Anahtar)
+            {
+                Veri[mod] = Veri[mod].pSonraki;
+                return true;
+            }
+
+            Dugum pTemp = Veri[mod];
+            while (pTemp.pSonraki != null)
+            {
+                if (pTemp.pSonraki.Anahtar == Anahtar)
+                {
+                    pTemp.pSonraki = pTemp.pSonraki.pSonraki;
+                    return true;
+                }
+                pTemp = pTemp.pSonraki;
+            }
+            return false;
+        }
+
+
+
+}
+
+
+namespace HashTable
+{
+
+
+     class MainClass
+        {
+            public static void Main(string[] args)
+            {
+
+
+            Hashtablo t2 = new Hashtablo();
+            t2.Ekle(1);
+            t2.Ekle(2);
+            t2.Ekle(3);
+            t2.Ekle(4);
+            t2.Ekle(5);
+            t2.Ekle(6);
+            t2.Ekle(7);
+            t2.Ekle(8);
+            t2.Ekle(9);
+            t2.Ekle(10);
+
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.WriteLine(t2.Veri[i].ToString());
+                   
+
+               
+                }
+
+            }
+        }
+    }
